@@ -23,7 +23,14 @@ class DayConditions{
     var airPressure : Double!
 }
 
+
 class DetailViewController: UIViewController {
+    
+    var detailItem: Location? {
+        didSet {
+            
+        }
+    }
 
     var forecasts = [DayConditions]()
     var currentDayIndex = 0;
@@ -37,24 +44,21 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var windSpeedOutlet: UITextField!
     @IBOutlet weak var airPressureOutlet: UITextField!
     @IBOutlet weak var imageOutlet: UIImageView!
+    @IBOutlet weak var navbarOutlet: UINavigationItem!
     
     @IBOutlet weak var nextButtonOutlet: UIButton!
     @IBOutlet weak var previousButtonOutlet: UIButton!
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
-    func configureView() {
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        
-        let url = URL(string : "https://www.metaweather.com/api/location/523920/")!
+        navbarOutlet.title = detailItem?.name
+        updateData()
+    }
+    
+    func updateData() {
+        let urlString = "https://www.metaweather.com/api/location/\(String((detailItem?.id)!))/"
+        let url = URL(string : urlString)!
         let task = URLSession.shared.dataTask(with: url) {
             (data, response, error) in
             if error != nil {
@@ -100,9 +104,9 @@ class DetailViewController: UIViewController {
         let forecast = forecasts[dayNo]
         self.dateOutlet.text = "\(String(forecast.year))-\(String(forecast.month))-\(String(forecast.day))"
         self.conditionsOutlet.text = forecasts[dayNo].conditionType
-        self.tempOutlet.text = String(format: "%.0f", forecast.temp) + "℃"
-        self.maxTempOutlet.text = String(format: "%.0f", forecast.maxTemp) + "℃"
-        self.minTempOutlet.text = String(format: "%.0f", forecast.minTemp) + "℃"
+        self.tempOutlet.text = String(format: "%.0f", forecast.temp) + " ℃"
+        self.maxTempOutlet.text = String(format: "%.0f", forecast.maxTemp) + " ℃"
+        self.minTempOutlet.text = String(format: "%.0f", forecast.minTemp) + " ℃"
         self.windDirOutlet.text = forecast.windDirection
         self.windSpeedOutlet.text = String(format: "%.0f", forecast.windSpeed) + " mph"
         self.airPressureOutlet.text = String(format: "%.0f", forecast.airPressure) + " mbar"
@@ -148,11 +152,4 @@ class DetailViewController: UIViewController {
         }
         task.resume()
     }
-
-    var detailItem: NSDate? {
-        didSet {
-            configureView()
-        }
-    }
-
 }

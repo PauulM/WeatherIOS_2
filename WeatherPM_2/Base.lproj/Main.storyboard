@@ -34,27 +34,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gtA-dE-FjU">
-                                <rect key="frame" x="16" y="68.5" width="343" height="594"/>
+                                <rect key="frame" x="16" y="108" width="343" height="515"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="rwr-UV-egb">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="542"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="463"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-pp-YoR">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="219"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UJR-9a-Cic">
-                                                        <rect key="frame" x="50" y="0.0" width="243" height="61"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warszawa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0R-I1-Li8">
-                                                                <rect key="frame" x="0.0" y="0.0" width="243" height="61"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                    </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="4in-uu-Mh6">
-                                                        <rect key="frame" x="41" y="79" width="261.5" height="140"/>
+                                                        <rect key="frame" x="41" y="0.0" width="261.5" height="140"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rfa-63-ZgJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
@@ -102,7 +91,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="5Rr-WU-qRf">
-                                                <rect key="frame" x="0.0" y="244" width="343" height="298"/>
+                                                <rect key="frame" x="0.0" y="165" width="343" height="298"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bgH-6J-L7N">
                                                         <rect key="frame" x="20" y="8" width="140" height="279"/>
@@ -192,7 +181,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="181" translatesAutoresizingMaskIntoConstraints="NO" id="Hih-pF-vn5">
-                                        <rect key="frame" x="0.0" y="552" width="343" height="42"/>
+                                        <rect key="frame" x="0.0" y="473" width="343" height="42"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gE-dh-FDo">
                                                 <rect key="frame" x="0.0" y="0.0" width="93" height="42"/>
@@ -237,6 +226,7 @@
                         <outlet property="imageOutlet" destination="SdQ-b6-tex" id="2nP-Ex-4SP"/>
                         <outlet property="maxTempOutlet" destination="xzk-iD-AVC" id="fwK-ht-3PU"/>
                         <outlet property="minTempOutlet" destination="7Xd-l2-pZY" id="aUE-xv-cBU"/>
+                        <outlet property="navbarOutlet" destination="mOI-FS-AaM" id="ltO-o3-VZi"/>
                         <outlet property="nextButtonOutlet" destination="QAZ-hI-sVx" id="Eh0-O0-mBa"/>
                         <outlet property="previousButtonOutlet" destination="4gE-dh-FDo" id="iA3-2D-vZM"/>
                         <outlet property="tempOutlet" destination="unh-N3-9cu" id="p4q-2b-naf"/>
@@ -299,7 +289,7 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="Paweł Matlęga" id="Zdf-7t-Un8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
