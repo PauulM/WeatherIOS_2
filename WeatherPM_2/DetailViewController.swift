@@ -8,23 +8,6 @@
 
 import UIKit
 
-class DayConditions{
-    var day : Int!
-    var month : Int!
-    var year : Int!
-    var conditionType : String!
-    var conditionTypeAbbr : String!
-    var temp : Double!
-    var maxTemp : Double!
-    var minTemp : Double!
-    var windSpeed : Double!
-    var windDirection : String!
-    var rainfall : String!
-    var airPressure : Double!
-    var image : UIImage!
-}
-
-
 class DetailViewController: UIViewController {
     
     var detailItem: LocationForecast? {

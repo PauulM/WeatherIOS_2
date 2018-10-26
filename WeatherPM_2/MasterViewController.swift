@@ -9,12 +9,6 @@
 import UIKit
 import Alamofire
 
-class LocationForecast{
-    var name : String!
-    var id : Int!
-    var forecasts = [DayConditions]()
-}
-
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
