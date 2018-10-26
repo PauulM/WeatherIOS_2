@@ -14,11 +14,15 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
     let maxDayIndex = 5;
+    let group = DispatchGroup()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.preload3Locations()
+        print("wait")
+        group.wait()
+        print("after wait")
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -69,10 +73,16 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemUITableCell
 
         let object = objects[indexPath.row] as! LocationForecast
-        cell.textLabel!.text = object.name
+        tableView.rowHeight = 125
+        cell.name = object.name
+        cell.locationOutlet.text! = object.name
+        cell.temperature = object.forecasts[0].temp
+        cell.tempOutlet.text! = String(format: "%.0f", object.forecasts[0].temp) + " ℃"
+        //cell.conditionsImage = object.forecasts[0].image
+        //cell.imageOutlet.image! = object.forecasts[0].image
         return cell
     }
 
@@ -103,20 +113,20 @@ class MasterViewController: UITableViewController {
         location3.name = "Berlin"
         location3.id = 638242
         loadLocationData(locationForecast: location3)
-        DispatchQueue.main.async {
-            self.objects.insert(location1, at: 0)
-            let indexPath1 = IndexPath(row: 0, section: 0)
-            self.tableView.insertRows(at: [indexPath1], with: .automatic)
-            self.objects.insert(location2, at: 1)
-            let indexPath2 = IndexPath(row: 1, section: 0)
-            self.tableView.insertRows(at: [indexPath2], with: .automatic)
-            self.objects.insert(location3, at: 1)
-            let indexPath3 = IndexPath(row: 1, section: 0)
-            self.tableView.insertRows(at: [indexPath3], with: .automatic)
-        }
+        self.objects.insert(location1, at: 0)
+        let indexPath1 = IndexPath(row: 0, section: 0)
+        self.tableView.insertRows(at: [indexPath1], with: .automatic)
+        self.objects.insert(location2, at: 1)
+        let indexPath2 = IndexPath(row: 1, section: 0)
+        self.tableView.insertRows(at: [indexPath2], with: .automatic)
+        self.objects.insert(location3, at: 1)
+        let indexPath3 = IndexPath(row: 1, section: 0)
+        self.tableView.insertRows(at: [indexPath3], with: .automatic)
+        
     }
     
     func loadLocationData(locationForecast : LocationForecast){
+        group.enter()
         let urlString = "https://www.metaweather.com/api/location/\(String(locationForecast.id))/"
         let url = URL(string : urlString)!
         let task = URLSession.shared.dataTask(with: url) {
@@ -145,11 +155,13 @@ class MasterViewController: UITableViewController {
                     dayForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
                     dayForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
                     self.loadImage(forecast: dayForecast)
+                    self.imageGroup.wait()
                     locationForecast.forecasts.append(dayForecast)
-                    
                 }
+                self.group.leave()
             }
             catch{
+                self.group.leave()
                 return
             }
         }
@@ -168,5 +180,6 @@ class MasterViewController: UITableViewController {
             }
         }
     }
+
 }
 
