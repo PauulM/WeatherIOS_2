@@ -7,24 +7,24 @@
 //
 
 import UIKit
+import Alamofire
 
-class Location{
+class LocationForecast{
     var name : String!
     var id : Int!
-    var miniForecast = DayConditions()
-    var img = UIImageView()
+    var forecasts = [DayConditions]()
 }
 
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
-    let group = DispatchGroup()
-
+    let maxDayIndex = 5;
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.preload3Locations()
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -42,13 +42,9 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        let newObject = Location()
+        let newObject = LocationForecast()
         newObject.id = 523920
-        newObject.name = "Warsaw"
-        self.group.enter()
-        getCurrentDayData(locationId: newObject.id, location : newObject)
-        self.group.wait()
-        print(String(newObject.miniForecast.temp))
+        newObject.name = "Added"
         objects.insert(newObject, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
@@ -59,7 +55,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! Location
+                let object = objects[indexPath.row] as! LocationForecast
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -81,8 +77,8 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let object = objects[indexPath.row] as! Location
-        cell.textLabel!.text = object.name //+ String(format: "%.0f", object.miniForecast.temp) + " ℃"
+        let object = objects[indexPath.row] as! LocationForecast
+        cell.textLabel!.text = object.name
         return cell
     }
 
@@ -99,32 +95,35 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-    func loadImage(abbr : String, viewToUpdate : UIImageView){
-        let url = URL(string : "https://www.metaweather.com/static/img/weather/png/\(abbr).png")!
-        let task = URLSession.shared.dataTask(with: url) {
-            (data, response, error) in
-            if error != nil {
-                return
-            }
-            if (response as? HTTPURLResponse) != nil {
-                if let imageData = data {
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        viewToUpdate.image = image
-                    }
-                
-                } else {
-                    return
-                }
-            }
+    
+    func preload3Locations() {
+        let location1 = LocationForecast()
+        location1.name = "Warsaw"
+        location1.id = 523920
+        loadLocationData(locationForecast: location1)
+        let location2 = LocationForecast()
+        location2.name = "London"
+        location2.id = 44418
+        loadLocationData(locationForecast: location2)
+        let location3 = LocationForecast()
+        location3.name = "Berlin"
+        location3.id = 638242
+        loadLocationData(locationForecast: location3)
+        DispatchQueue.main.async {
+            self.objects.insert(location1, at: 0)
+            let indexPath1 = IndexPath(row: 0, section: 0)
+            self.tableView.insertRows(at: [indexPath1], with: .automatic)
+            self.objects.insert(location2, at: 1)
+            let indexPath2 = IndexPath(row: 1, section: 0)
+            self.tableView.insertRows(at: [indexPath2], with: .automatic)
+            self.objects.insert(location3, at: 1)
+            let indexPath3 = IndexPath(row: 1, section: 0)
+            self.tableView.insertRows(at: [indexPath3], with: .automatic)
         }
-        task.resume()
-        self.group.leave()
     }
     
-    func getCurrentDayData(locationId : Int, location : Location) {
-        let urlString = "https://www.metaweather.com/api/location/\(String(locationId))/"
+    func loadLocationData(locationForecast : LocationForecast){
+        let urlString = "https://www.metaweather.com/api/location/\(String(locationForecast.id))/"
         let url = URL(string : urlString)!
         let task = URLSession.shared.dataTask(with: url) {
             (data, response, error) in
@@ -135,27 +134,45 @@ class MasterViewController: UITableViewController {
             do{
                 let response = try JSONSerialization.jsonObject(with: responseJson!) as! [String: Any]
                 let array = response["consolidated_weather"] as! [[String:Any]]
-                let currentDayForecast = array[0]
-                let dateString = (currentDayForecast["applicable_date"] as! String)
-                let dateArray = dateString.split(separator: "-").map(String.init)
-                location.miniForecast.day = Int(dateArray[2])
-                location.miniForecast.month = Int(dateArray[1])
-                location.miniForecast.year = Int(dateArray[0])
-                location.miniForecast.conditionType = (currentDayForecast["weather_state_name"] as! String)
-                location.miniForecast.conditionTypeAbbr = (currentDayForecast["weather_state_abbr"] as! String)
-                location.miniForecast.temp = (currentDayForecast["the_temp"] as! Double)
-                location.miniForecast.windSpeed = (currentDayForecast["wind_speed"] as! Double)
-                location.miniForecast.maxTemp = (currentDayForecast["max_temp"] as! Double)
-                location.miniForecast.minTemp = (currentDayForecast["min_temp"] as! Double)
-                location.miniForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
-                location.miniForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
-                self.loadImage(abbr: location.miniForecast.conditionTypeAbbr, viewToUpdate: location.img)
+                for i in 0...self.maxDayIndex{
+                    let currentDayForecast = array[i]
+                    let dateString = (currentDayForecast["applicable_date"] as! String)
+                    let dateArray = dateString.split(separator: "-").map(String.init)
+                    let dayForecast = DayConditions()
+                    dayForecast.day = Int(dateArray[2])
+                    dayForecast.month = Int(dateArray[1])
+                    dayForecast.year = Int(dateArray[0])
+                    dayForecast.conditionType = (currentDayForecast["weather_state_name"] as! String)
+                    dayForecast.conditionTypeAbbr = (currentDayForecast["weather_state_abbr"] as! String)
+                    dayForecast.temp = (currentDayForecast["the_temp"] as! Double)
+                    dayForecast.windSpeed = (currentDayForecast["wind_speed"] as! Double)
+                    dayForecast.maxTemp = (currentDayForecast["max_temp"] as! Double)
+                    dayForecast.minTemp = (currentDayForecast["min_temp"] as! Double)
+                    dayForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
+                    dayForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
+                    self.loadImage(forecast: dayForecast)
+                    locationForecast.forecasts.append(dayForecast)
+                    
+                }
             }
             catch{
                 return
             }
         }
         task.resume()
+    }
+    
+    func loadImage(forecast : DayConditions){
+        let stringUrl = "https://www.metaweather.com/static/img/weather/png/\(forecast.conditionTypeAbbr!).png"
+        let url = URL(string : stringUrl)!
+        Alamofire.request(url).responseData{
+            (response) in
+            if response.error == nil{
+                if let data = response.data{
+                    forecast.image = UIImage(data: data)
+                }
+            }
+        }
     }
 }
 
