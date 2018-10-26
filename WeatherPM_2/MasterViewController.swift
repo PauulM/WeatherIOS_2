@@ -155,7 +155,6 @@ class MasterViewController: UITableViewController {
                     dayForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
                     dayForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
                     self.loadImage(forecast: dayForecast)
-                    self.imageGroup.wait()
                     locationForecast.forecasts.append(dayForecast)
                 }
                 self.group.leave()
