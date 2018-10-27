@@ -40,12 +40,13 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        let newObject = LocationForecast()
-        newObject.id = 523920
-        newObject.name = "Added"
-        objects.insert(newObject, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+//        let newObject = LocationForecast()
+//        newObject.id = 523920
+//        newObject.name = "Added"
+//        objects.insert(newObject, at: 0)
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
+        performSegue(withIdentifier: "showAddItemView", sender: self)
     }
 
     // MARK: - Segues
@@ -120,7 +121,7 @@ class MasterViewController: UITableViewController {
         let indexPath2 = IndexPath(row: 1, section: 0)
         self.tableView.insertRows(at: [indexPath2], with: .automatic)
         self.objects.insert(location3, at: 1)
-        let indexPath3 = IndexPath(row: 1, section: 0)
+        let indexPath3 = IndexPath(row: 2, section: 0)
         self.tableView.insertRows(at: [indexPath3], with: .automatic)
         
     }
