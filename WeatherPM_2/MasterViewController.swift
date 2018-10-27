@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class MasterViewController: UITableViewController {
 
@@ -22,7 +21,6 @@ class MasterViewController: UITableViewController {
         self.preload3Locations()
         group.wait()
         navigationItem.leftBarButtonItem = editButtonItem
-
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
@@ -53,6 +51,12 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
+//        if segue.identifier == "showAddItemView"{
+//            navigationItem.backBarButtonItem?.title = "Cancel"
+//            let controller = segue.destination as! AddItemViewController
+//            controller.navigationItem.leftBarButtonItem?.title = "Cancel"
+//            navigationItem.leftBarButtonItem?.title = "Cancel"
+//        }
     }
 
     // MARK: - Table View

@@ -21,7 +21,6 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         tableOutlet.rowHeight = 50
-        self.navigationController?.navigationBar.backItem?.title = "Cancel"
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,8 +38,21 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        print(objects[indexPath.row].name! + "  " + String(indexPath.row))
         performSegue(withIdentifier: "backFromAddView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backFromAddView" {
+            if let indexPath = tableOutlet.indexPathForSelectedRow {
+                let object = objects[indexPath.row] as! LocationForecast
+                loadLocationForecasts(location: object)
+                let controller = segue.destination as! MasterViewController
+                let rowNo = controller.objects.count
+                controller.objects.append(object)
+                let indexPath = IndexPath(row: rowNo, section: 0)
+                controller.tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+        }
     }
     
     @IBAction func findAction(_ sender: Any) {
@@ -78,5 +90,49 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableOutlet.deleteRows(at: prepareIndexPaths(num: self.objects.count), with: .automatic)
         self.objects.removeAll()
         self.tableOutlet.endUpdates()
+    }
+    
+    func loadLocationForecasts(location : LocationForecast){
+        let group = DispatchGroup();
+        group.enter()
+        let urlString = "https://www.metaweather.com/api/location/\(String(location.id))/"
+        let url = URL(string : urlString)!
+        let task = URLSession.shared.dataTask(with: url) {
+            (data, response, error) in
+            if error != nil {
+                return
+            }
+            let responseJson = data
+            do{
+                let response = try JSONSerialization.jsonObject(with: responseJson!) as! [String: Any]
+                let array = response["consolidated_weather"] as! [[String:Any]]
+                for i in 0...5{
+                    let currentDayForecast = array[i]
+                    let dateString = (currentDayForecast["applicable_date"] as! String)
+                    let dateArray = dateString.split(separator: "-").map(String.init)
+                    let dayForecast = DayConditions()
+                    dayForecast.day = Int(dateArray[2])
+                    dayForecast.month = Int(dateArray[1])
+                    dayForecast.year = Int(dateArray[0])
+                    dayForecast.conditionType = (currentDayForecast["weather_state_name"] as! String)
+                    dayForecast.conditionTypeAbbr = (currentDayForecast["weather_state_abbr"] as! String)
+                    dayForecast.temp = (currentDayForecast["the_temp"] as! Double)
+                    dayForecast.windSpeed = (currentDayForecast["wind_speed"] as! Double)
+                    dayForecast.maxTemp = (currentDayForecast["max_temp"] as! Double)
+                    dayForecast.minTemp = (currentDayForecast["min_temp"] as! Double)
+                    dayForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
+                    dayForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
+                    dayForecast.image = UIImage(named: dayForecast.conditionTypeAbbr! + ".png")
+                    location.forecasts.append(dayForecast)
+                }
+                group.leave()
+            }
+            catch{
+                group.leave()
+                return
+            }
+        }
+        task.resume()
+        group.wait()
     }
 }
