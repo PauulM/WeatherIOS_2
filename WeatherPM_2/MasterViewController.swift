@@ -20,9 +20,7 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.preload3Locations()
-        print("wait")
         group.wait()
-        print("after wait")
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -40,12 +38,6 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-//        let newObject = LocationForecast()
-//        newObject.id = 523920
-//        newObject.name = "Added"
-//        objects.insert(newObject, at: 0)
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        tableView.insertRows(at: [indexPath], with: .automatic)
         performSegue(withIdentifier: "showAddItemView", sender: self)
     }
 

@@ -328,13 +328,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nbb-y9-tep">
-                                <rect key="frame" x="22" y="99" width="240" height="50"/>
+                                <rect key="frame" x="22" y="55" width="240" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bop-En-YCM"/>
                                     <constraint firstAttribute="width" constant="240" id="jR4-M5-1jN"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yug-c9-CZ4">
@@ -350,7 +350,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WwX-EX-INl">
-                                <rect key="frame" x="0.0" y="180" width="375" height="487"/>
+                                <rect key="frame" x="0.0" y="136" width="375" height="531"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" rowHeight="50" id="IZh-L1-ApE" customClass="LocationCell" customModule="WeatherPM_2" customModuleProvider="target">
@@ -402,11 +402,12 @@
                         <outlet property="findButtonOutlet" destination="yug-c9-CZ4" id="vzG-eJ-cj9"/>
                         <outlet property="searchFieldOutlet" destination="Nbb-y9-tep" id="zUj-zX-qTy"/>
                         <outlet property="tableOutlet" destination="WwX-EX-INl" id="H0V-Wq-NKX"/>
+                        <segue destination="7bK-jq-Zjz" kind="showDetail" identifier="backFromAddView" id="aI7-wc-DOC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MSC-EN-LKj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621.5999999999999" y="-269.41529235382313"/>
+            <point key="canvasLocation" x="1612" y="-630"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
@@ -427,5 +428,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
+        <segue reference="aI7-wc-DOC"/>
     </inferredMetricsTieBreakers>
 </document>

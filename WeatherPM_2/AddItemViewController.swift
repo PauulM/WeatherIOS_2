@@ -10,17 +10,6 @@ import UIKit
 import Alamofire
 
 class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableOutlet.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
-        cell.locationLabelOutlet.text! = objects[indexPath.row].name
-        return cell
-    }
-    
 
     @IBOutlet weak var tableOutlet: UITableView!
     @IBOutlet weak var searchFieldOutlet: UITextField!
@@ -39,6 +28,20 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.didReceiveMemoryWarning()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return objects.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableOutlet.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
+        cell.locationLabelOutlet.text! = objects[indexPath.row].name
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        print(objects[indexPath.row].name! + "  " + String(indexPath.row))
+        performSegue(withIdentifier: "backFromAddView", sender: self)
+    }
     
     @IBAction func findAction(_ sender: Any) {
         clearTableView()
