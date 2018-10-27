@@ -81,8 +81,8 @@ class MasterViewController: UITableViewController {
         cell.locationOutlet.text! = object.name
         cell.temperature = object.forecasts[0].temp
         cell.tempOutlet.text! = String(format: "%.0f", object.forecasts[0].temp) + " ℃"
-        //cell.conditionsImage = object.forecasts[0].image
-        //cell.imageOutlet.image! = object.forecasts[0].image
+        cell.conditionsImage = object.forecasts[0].image
+        cell.imageOutlet.image = object.forecasts[0].image
         return cell
     }
 
@@ -154,7 +154,7 @@ class MasterViewController: UITableViewController {
                     dayForecast.minTemp = (currentDayForecast["min_temp"] as! Double)
                     dayForecast.windDirection = (currentDayForecast["wind_direction_compass"] as! String)
                     dayForecast.airPressure = (currentDayForecast["air_pressure"] as! Double)
-                    self.loadImage(forecast: dayForecast)
+                    dayForecast.image = UIImage(named: dayForecast.conditionTypeAbbr! + ".png")
                     locationForecast.forecasts.append(dayForecast)
                 }
                 self.group.leave()
@@ -165,19 +165,6 @@ class MasterViewController: UITableViewController {
             }
         }
         task.resume()
-    }
-    
-    func loadImage(forecast : DayConditions){
-        let stringUrl = "https://www.metaweather.com/static/img/weather/png/\(forecast.conditionTypeAbbr!).png"
-        let url = URL(string : stringUrl)!
-        Alamofire.request(url).responseData{
-            (response) in
-            if response.error == nil{
-                if let data = response.data{
-                    forecast.image = UIImage(data: data)
-                }
-            }
-        }
     }
 
 }
