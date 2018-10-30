@@ -17,7 +17,6 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var navigationOutlet: UINavigationItem!
     
     var objects = [LocationForecast]()
-    var masterObjects = [Any]()
     var selectedObject = LocationForecast()
     
     override func viewDidLoad() {
@@ -39,14 +38,10 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        performSegue(withIdentifier: "backFromAddView", sender: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backFromAddView" {
             if let indexPath = tableOutlet.indexPathForSelectedRow {
-                let object = objects[indexPath.row] 
+                let object = objects[indexPath.row]
                 loadLocationForecasts(location: object)
                 selectedObject = object;
             }
