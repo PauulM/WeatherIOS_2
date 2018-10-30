@@ -46,7 +46,6 @@ class MasterViewController: UITableViewController {
         self.objects.append(selectedLocation)
         let indexPath = IndexPath(row: rowNo, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        
     }
 
     // MARK: - Segues
@@ -59,7 +58,7 @@ class MasterViewController: UITableViewController {
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
-                controller.navigationItem.backBarButtonItem = createUIBarButtonWithLabel(label: "Back")
+                navigationItem.backBarButtonItem = createUIBarButtonWithLabel(label: "Back")
             }
         }
         if segue.identifier == "showAddItemView"{
@@ -69,7 +68,7 @@ class MasterViewController: UITableViewController {
     
     func createUIBarButtonWithLabel(label : String) -> UIBarButtonItem{
         let newButton = UIBarButtonItem()
-        newButton.title = "Cancel"
+        newButton.title = label
         return newButton
     }
 

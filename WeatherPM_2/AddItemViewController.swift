@@ -14,7 +14,6 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableOutlet: UITableView!
     @IBOutlet weak var searchFieldOutlet: UITextField!
     @IBOutlet weak var findButtonOutlet: UIButton!
-    @IBOutlet weak var navigationOutlet: UINavigationItem!
     
     var objects = [LocationForecast]()
     var selectedObject = LocationForecast()

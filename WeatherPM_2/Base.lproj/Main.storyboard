@@ -337,18 +337,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yug-c9-CZ4">
-                                <rect key="frame" x="303" y="99" width="56" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="IhG-Pf-4bX"/>
-                                    <constraint firstAttribute="height" constant="50" id="rrC-UL-cRf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Find"/>
-                                <connections>
-                                    <action selector="findAction:" destination="zJZ-UW-5YU" eventType="touchUpInside" id="Beu-nO-EGB"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WwX-EX-INl">
                                 <rect key="frame" x="0.0" y="180" width="375" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -385,17 +373,25 @@
                                     <outlet property="delegate" destination="zJZ-UW-5YU" id="wGN-s0-WzD"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yug-c9-CZ4">
+                                <rect key="frame" x="294" y="99" width="56" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Find"/>
+                                <connections>
+                                    <action selector="findAction:" destination="zJZ-UW-5YU" eventType="touchUpInside" id="Beu-nO-EGB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="WwX-EX-INl" firstAttribute="top" secondItem="Nbb-y9-tep" secondAttribute="bottom" constant="31" id="0ji-zz-JfO"/>
-                            <constraint firstItem="yug-c9-CZ4" firstAttribute="top" secondItem="rke-Ke-f5e" secondAttribute="top" constant="42" id="58O-7k-4M4"/>
                             <constraint firstItem="WwX-EX-INl" firstAttribute="centerX" secondItem="rke-Ke-f5e" secondAttribute="centerX" id="5eK-YN-ajg"/>
+                            <constraint firstItem="rke-Ke-f5e" firstAttribute="trailing" secondItem="yug-c9-CZ4" secondAttribute="trailing" constant="25" id="6Vg-ge-Ibz"/>
                             <constraint firstItem="Nbb-y9-tep" firstAttribute="top" secondItem="rke-Ke-f5e" secondAttribute="top" constant="35" id="B9s-LR-7Eu"/>
-                            <constraint firstItem="rke-Ke-f5e" firstAttribute="trailing" secondItem="yug-c9-CZ4" secondAttribute="trailing" constant="33" id="FpT-dC-UES"/>
                             <constraint firstItem="WwX-EX-INl" firstAttribute="width" secondItem="1jK-Pc-GYe" secondAttribute="width" id="LBw-NH-8FH"/>
                             <constraint firstItem="rke-Ke-f5e" firstAttribute="bottom" secondItem="WwX-EX-INl" secondAttribute="bottom" id="luT-ce-FqE"/>
                             <constraint firstItem="Nbb-y9-tep" firstAttribute="leading" secondItem="rke-Ke-f5e" secondAttribute="leading" constant="22" id="obn-z4-U42"/>
+                            <constraint firstItem="yug-c9-CZ4" firstAttribute="centerY" secondItem="Nbb-y9-tep" secondAttribute="centerY" id="yHw-ZN-iUh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rke-Ke-f5e"/>
                     </view>

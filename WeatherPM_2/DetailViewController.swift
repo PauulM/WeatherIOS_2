@@ -11,9 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var detailItem: LocationForecast? {
-        didSet {
-            
-        }
+        didSet {}
     }
 
     var currentDayIndex = 0;
@@ -31,7 +29,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var nextButtonOutlet: UIButton!
     @IBOutlet weak var previousButtonOutlet: UIButton!
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
