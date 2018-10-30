@@ -59,16 +59,18 @@ class MasterViewController: UITableViewController {
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.backBarButtonItem = createUIBarButtonWithLabel(label: "Back")
             }
         }
         if segue.identifier == "showAddItemView"{
-//            let controller = segue.destination as! AddItemViewController
-//            controller.masterObjects = self.objects
-//            navigationItem.backBarButtonItem?.title = "Cancel"
-//            let controller = segue.destination as! AddItemViewController
-//            controller.navigationItem.leftBarButtonItem?.title = "Cancel"
-//            navigationItem.leftBarButtonItem?.title = "Cancel"
+            navigationItem.backBarButtonItem = createUIBarButtonWithLabel(label: "Cancel")
         }
+    }
+    
+    func createUIBarButtonWithLabel(label : String) -> UIBarButtonItem{
+        let newButton = UIBarButtonItem()
+        newButton.title = "Cancel"
+        return newButton
     }
 
     // MARK: - Table View
