@@ -38,6 +38,16 @@ class MasterViewController: UITableViewController {
     func insertNewObject(_ sender: Any) {
         performSegue(withIdentifier: "showAddItemView", sender: self)
     }
+    
+    @IBAction func backFromAddView(_ sender : UIStoryboardSegue){
+        let sourceController = sender.source as! AddItemViewController
+        let selectedLocation = sourceController.selectedObject
+        let rowNo = objects.count
+        self.objects.append(selectedLocation)
+        let indexPath = IndexPath(row: rowNo, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        
+    }
 
     // MARK: - Segues
 
@@ -51,12 +61,14 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
-//        if segue.identifier == "showAddItemView"{
+        if segue.identifier == "showAddItemView"{
+//            let controller = segue.destination as! AddItemViewController
+//            controller.masterObjects = self.objects
 //            navigationItem.backBarButtonItem?.title = "Cancel"
 //            let controller = segue.destination as! AddItemViewController
 //            controller.navigationItem.leftBarButtonItem?.title = "Cancel"
 //            navigationItem.leftBarButtonItem?.title = "Cancel"
-//        }
+        }
     }
 
     // MARK: - Table View
@@ -110,13 +122,13 @@ class MasterViewController: UITableViewController {
         location3.name = "Berlin"
         location3.id = 638242
         loadLocationData(locationForecast: location3)
-        self.objects.insert(location1, at: 0)
+        self.objects.append(location1)
         let indexPath1 = IndexPath(row: 0, section: 0)
         self.tableView.insertRows(at: [indexPath1], with: .automatic)
-        self.objects.insert(location2, at: 1)
+        self.objects.append(location2)
         let indexPath2 = IndexPath(row: 1, section: 0)
         self.tableView.insertRows(at: [indexPath2], with: .automatic)
-        self.objects.insert(location3, at: 1)
+        self.objects.append(location3)
         let indexPath3 = IndexPath(row: 2, section: 0)
         self.tableView.insertRows(at: [indexPath3], with: .automatic)
         
@@ -163,6 +175,5 @@ class MasterViewController: UITableViewController {
         }
         task.resume()
     }
-
 }
 
