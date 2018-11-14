@@ -88,6 +88,11 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let location = LocationForecast()
                     location.id = ((locationsArray[i])["woeid"] as! Int)
                     location.name = ((locationsArray[i])["title"] as! String)
+                    let lattLong = ((locationsArray[i])["latt_long"] as! String)
+                    let latString = lattLong.split(separator: ",")[0]
+                    let lonString = lattLong.split(separator: ",")[1]
+                    location.lat = Double(latString)
+                    location.lon = Double(lonString)
                     self.objects.append(location)
                 }
                 self.tableOutlet.beginUpdates()
@@ -111,6 +116,11 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let location = LocationForecast()
                     location.id = ((locationsArray[i])["woeid"] as! Int)
                     location.name = ((locationsArray[i])["title"] as! String)
+                    let lattLong = ((locationsArray[i])["latt_long"] as! String)
+                    let latString = lattLong.split(separator: ",")[0]
+                    let lonString = lattLong.split(separator: ",")[1]
+                    location.lat = Double(latString)
+                    location.lon = Double(lonString)
                     let distance = ((locationsArray[i])["distance"] as! Int)
                     self.objects.append(location)
                     if distance < self.maxLocationRadius {

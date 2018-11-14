@@ -67,4 +67,12 @@ class DetailViewController: UIViewController {
             self.previousButtonOutlet.isEnabled = false
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMapView" {
+            let controller = segue.destination as! MapViewController
+            controller.lat = detailItem?.lat
+            controller.lon = detailItem?.lon
+        }
+    }
 }

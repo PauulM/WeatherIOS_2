@@ -10,6 +10,7 @@
 		3F9DE7F5218866280025EECF /* Alamofire.xcodeproj in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E61FEC218382BB002A8975 /* Alamofire.xcodeproj */; };
 		3F9DE800218866620025EECF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E61FF8218382BC002A8975 /* Alamofire.framework */; };
 		3F9DE801218866620025EECF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63E61FF8218382BC002A8975 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		63340F43219CB05700647017 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63340F42219CB05700647017 /* MapViewController.swift */; };
 		636899BC2184CF250072A2B0 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636899BB2184CF250072A2B0 /* LocationCell.swift */; };
 		63A2894321839D9B00666997 /* LocationForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2894221839D9B00666997 /* LocationForecast.swift */; };
 		63A2894521839DF500666997 /* DayConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2894421839DF500666997 /* DayConditions.swift */; };
@@ -146,6 +147,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		63340F42219CB05700647017 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		636899BB2184CF250072A2B0 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		63A289242183985800666997 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		63A2894221839D9B00666997 /* LocationForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationForecast.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				63A2894421839DF500666997 /* DayConditions.swift */,
 				63FEB842217F67630077967B /* DetailViewController.swift */,
 				63FEB844217F67630077967B /* Main.storyboard */,
+				63340F42219CB05700647017 /* MapViewController.swift */,
 				636899BB2184CF250072A2B0 /* LocationCell.swift */,
 				63C5B5AF218482FA00194914 /* AddItemViewController.swift */,
 				63A2894C2183CA5A00666997 /* ItemUITableCell.swift */,
@@ -437,6 +440,7 @@
 				63A2894D2183CA5A00666997 /* ItemUITableCell.swift in Sources */,
 				63A2894321839D9B00666997 /* LocationForecast.swift in Sources */,
 				63FEB841217F67630077967B /* MasterViewController.swift in Sources */,
+				63340F43219CB05700647017 /* MapViewController.swift in Sources */,
 				636899BC2184CF250072A2B0 /* LocationCell.swift in Sources */,
 				63C5B5B0218482FA00194914 /* AddItemViewController.swift in Sources */,
 				63FEB83F217F67630077967B /* AppDelegate.swift in Sources */,

@@ -11,5 +11,7 @@ import Foundation
 class LocationForecast{
     var name : String!
     var id : Int!
+    var lat : Double!
+    var lon : Double!
     var forecasts = [DayConditions]()
 }

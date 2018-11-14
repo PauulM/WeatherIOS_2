@@ -114,14 +114,20 @@ class MasterViewController: UITableViewController {
         let location1 = LocationForecast()
         location1.name = "Warsaw"
         location1.id = 523920
+        location1.lat = 52.235352
+        location1.lon = 21.009390
         loadLocationData(locationForecast: location1)
         let location2 = LocationForecast()
         location2.name = "London"
         location2.id = 44418
+        location2.lat = 51.506321
+        location2.lon = -0.12714
         loadLocationData(locationForecast: location2)
         let location3 = LocationForecast()
         location3.name = "Berlin"
         location3.id = 638242
+        location3.lat = 52.516071
+        location3.lon = 13.376980
         loadLocationData(locationForecast: location3)
         self.objects.append(location1)
         let indexPath1 = IndexPath(row: 0, section: 0)
