@@ -387,6 +387,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYA-4T-cCg">
+                                <rect key="frame" x="276" y="118.5" width="70" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Location"/>
+                                <connections>
+                                    <action selector="findByLocationAction:" destination="zJZ-UW-5YU" eventType="touchUpInside" id="LSg-W1-cPe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -394,10 +402,14 @@
                             <constraint firstItem="rke-Ke-f5e" firstAttribute="trailing" secondItem="yug-c9-CZ4" secondAttribute="trailing" constant="25" id="6Vg-ge-Ibz"/>
                             <constraint firstItem="Nbb-y9-tep" firstAttribute="top" secondItem="rke-Ke-f5e" secondAttribute="top" constant="5" id="B9s-LR-7Eu"/>
                             <constraint firstItem="WwX-EX-INl" firstAttribute="width" secondItem="1jK-Pc-GYe" secondAttribute="width" id="LBw-NH-8FH"/>
+                            <constraint firstItem="UYA-4T-cCg" firstAttribute="width" secondItem="yug-c9-CZ4" secondAttribute="width" id="Zdl-gd-Bjk"/>
+                            <constraint firstItem="UYA-4T-cCg" firstAttribute="height" secondItem="yug-c9-CZ4" secondAttribute="height" id="bE9-TM-4Ck"/>
                             <constraint firstItem="hk0-JM-4Xc" firstAttribute="leading" secondItem="rke-Ke-f5e" secondAttribute="leading" constant="22" id="chg-Va-4QU"/>
                             <constraint firstItem="WwX-EX-INl" firstAttribute="top" secondItem="hk0-JM-4Xc" secondAttribute="bottom" constant="25" id="kMc-87-dd3"/>
+                            <constraint firstItem="rke-Ke-f5e" firstAttribute="trailing" secondItem="UYA-4T-cCg" secondAttribute="trailing" constant="29" id="kaf-dP-W1E"/>
                             <constraint firstItem="rke-Ke-f5e" firstAttribute="bottom" secondItem="WwX-EX-INl" secondAttribute="bottom" id="luT-ce-FqE"/>
                             <constraint firstItem="Nbb-y9-tep" firstAttribute="leading" secondItem="rke-Ke-f5e" secondAttribute="leading" constant="22" id="obn-z4-U42"/>
+                            <constraint firstItem="UYA-4T-cCg" firstAttribute="centerY" secondItem="hk0-JM-4Xc" secondAttribute="centerY" id="qWb-ve-x0Y"/>
                             <constraint firstItem="hk0-JM-4Xc" firstAttribute="width" secondItem="Nbb-y9-tep" secondAttribute="width" id="raj-sY-izO"/>
                             <constraint firstItem="yug-c9-CZ4" firstAttribute="centerY" secondItem="Nbb-y9-tep" secondAttribute="centerY" id="yHw-ZN-iUh"/>
                             <constraint firstItem="hk0-JM-4Xc" firstAttribute="top" secondItem="Nbb-y9-tep" secondAttribute="bottom" constant="15" id="zWa-sF-AOC"/>
@@ -406,6 +418,7 @@
                     </view>
                     <connections>
                         <outlet property="findButtonOutlet" destination="yug-c9-CZ4" id="vzG-eJ-cj9"/>
+                        <outlet property="findByLocationButtonOutlet" destination="UYA-4T-cCg" id="Acm-AW-6tU"/>
                         <outlet property="locationOutlet" destination="hk0-JM-4Xc" id="VDc-W5-yq1"/>
                         <outlet property="searchFieldOutlet" destination="Nbb-y9-tep" id="zUj-zX-qTy"/>
                         <outlet property="tableOutlet" destination="WwX-EX-INl" id="H0V-Wq-NKX"/>

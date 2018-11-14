@@ -16,10 +16,13 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var searchFieldOutlet: UITextField!
     @IBOutlet weak var findButtonOutlet: UIButton!
     @IBOutlet weak var locationOutlet: UILabel!
+    @IBOutlet weak var findByLocationButtonOutlet: UIButton!
     
+    let maxLocationRadius = 30000
     var objects = [LocationForecast]()
     var selectedObject = LocationForecast()
     let locationManager = CLLocationManager()
+    var coordinates : CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,7 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = manager.location
+        self.coordinates = currentLocation?.coordinate
         let geoCoder = CLGeocoder()
         var labelText = "Currently in: "
         geoCoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) -> Void in
@@ -85,6 +89,33 @@ class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewD
                     location.id = ((locationsArray[i])["woeid"] as! Int)
                     location.name = ((locationsArray[i])["title"] as! String)
                     self.objects.append(location)
+                }
+                self.tableOutlet.beginUpdates()
+                self.tableOutlet.insertRows(at: self.prepareIndexPaths(num: self.objects.count), with: .automatic)
+                self.tableOutlet.endUpdates()
+            }
+        }
+    }
+    
+    @IBAction func findByLocationAction(_ sender: Any) {
+        clearTableView()
+        let lat = self.coordinates.latitude
+        let lon = self.coordinates.longitude
+        let stringUrl = "https://www.metaweather.com/api/location/search?lattlong=\(String(lat)),\(String(lon))"
+        let url = URL(string: stringUrl)!
+        Alamofire.request(url).responseJSON{
+            (response) in
+            if let result = response.result.value{
+                let locationsArray = result as! [[String:Any]]
+                for i in 0..<locationsArray.count{
+                    let location = LocationForecast()
+                    location.id = ((locationsArray[i])["woeid"] as! Int)
+                    location.name = ((locationsArray[i])["title"] as! String)
+                    let distance = ((locationsArray[i])["distance"] as! Int)
+                    self.objects.append(location)
+                    if distance < self.maxLocationRadius {
+                        break
+                    }
                 }
                 self.tableOutlet.beginUpdates()
                 self.tableOutlet.insertRows(at: self.prepareIndexPaths(num: self.objects.count), with: .automatic)
