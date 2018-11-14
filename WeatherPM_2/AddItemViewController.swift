@@ -8,20 +8,44 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
-class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class AddItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate{
 
     @IBOutlet weak var tableOutlet: UITableView!
     @IBOutlet weak var searchFieldOutlet: UITextField!
     @IBOutlet weak var findButtonOutlet: UIButton!
+    @IBOutlet weak var locationOutlet: UILabel!
     
     var objects = [LocationForecast]()
     var selectedObject = LocationForecast()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableOutlet.rowHeight = 50
+        if(CLLocationManager.locationServicesEnabled()){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentLocation = manager.location
+        let geoCoder = CLGeocoder()
+        var labelText = "Currently in: "
+        geoCoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) -> Void in
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            labelText += placeMark.locality!
+            labelText += ", "
+            labelText += placeMark.country!
+            self.locationOutlet.text = labelText
+            })
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
